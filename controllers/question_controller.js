@@ -37,12 +37,14 @@ module.exports.createQuestion= async function(req, res)
 module.exports.getAllquestion = async function(req, res)
 {
  
-     const allQuestion= await Question.find({});
+     const allQuestion= await Question.find({})
+      
+
      if(allQuestion)
      {
         return res.status(200).json(
             {
-                message:"All questions are found successfully !!",
+                message:"List Of All Questions !!",
                 question: allQuestion,
             })
      }

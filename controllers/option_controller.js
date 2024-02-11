@@ -100,17 +100,13 @@ module.exports.deleteOption = async function (req, res) {
 module.exports.addVote = async function (req, res) {
     try {
 
-
-        
-        // const question = await Question.findById({ _id: req.params.id });
         const option = await Option.findById({ _id: req.params.optid });
     
 
         if (option) {
           
-            const question= await Question.findOne({_id :option.question_ref})
+            const question= await Question.findOne({_id : option.question_ref})
            
-
             const updatedOption = await Option.findByIdAndUpdate({ _id: req.params.optid },
                 {
                     $inc: { votes: 1 }
@@ -119,19 +115,15 @@ module.exports.addVote = async function (req, res) {
                 {
                     new: true,
                 });
-                updatedOption.vote_link = vote_path + '/' + option.id + '/' + 'addvote';
-            //    console.log(updatedOption);
+               const newOps = await Option.find({});
+    
+               console.log(newOps);
 
-            const allOps = question.options;
-            const newOps = allOps.filter(function (ops) {
+           
+            question.options = newOps;
 
-                return ops._id != req.params.optid
-            })
-
-        
-      
-            newOps.push(updatedOption)
-            question.options = newOps
+            
+           
             await question.save();
             // console.log(question)
              
