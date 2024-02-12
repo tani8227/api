@@ -130,12 +130,12 @@ module.exports.addVote = async function (req, res) {
             await question.save();
             // console.log(question)
              
-          
+          const allQuestions= await Question.find({});
          
             return res.status(200).json(
                 {
                     message: "vote added successfully !!",
-                    question:question ,
+                    question:allQuestions ,
                 })
 
         }
