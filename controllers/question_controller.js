@@ -60,6 +60,8 @@ module.exports.displayQuestion = async function(req, res)
      const question= await Question.findById({_id:req.params.id});
      if(question)
      {
+
+        // console.log(question);
         return res.status(200).json(
             {
                 message:"question found successfully !!",
@@ -72,7 +74,7 @@ module.exports.displayQuestion = async function(req, res)
 module.exports.deleteQuestion = async function(req, res)
 {
 
-     console.log(req.params.id);
+    //  console.log(req.params.id);
      const questionId= req.params.id;
      const questiondeleted= await Question.findByIdAndDelete(req.params.id)
 

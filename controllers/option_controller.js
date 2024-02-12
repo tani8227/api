@@ -3,58 +3,58 @@ const Question = require('../model/question')
 require('dotenv').config()
 const vote_path = process.env.VOTE_PATH;
 
-module.exports.createOption = async function (req, res) {
+module.exports.createOption = async function (req, res) 
+{
 
     const question = await Question.findById(req.params.id)
-    if (question) {
-
-
-        const optioncreated = await Option.create(
+    if (question)
+        {
+         const optioncreated = await Option.create(
             {
                 name:req.body.name,
                 votes:req.body.votes,
                 question_ref: question.id,
 
             })
-
-
-        optioncreated.vote_link = vote_path + '/' + optioncreated.id + '/' + 'addvote';
-        // console.log(optioncreated);
-
-        if (optioncreated) {
-
-            // console.log(optioncreated);
-
-            const question = await Question.findById(req.params.id)
-
-            //    console.log(question);
-            question.options.push(optioncreated);
-
-            //  console.log(question.options);
-
-            const savedquestion = await question.save();
-            if (savedquestion) {
-                return res.status(200).json(
+         
+            if (optioncreated) 
+            {
+                
+                optioncreated.vote_link = vote_path + '/' + optioncreated.id + '/' + 'addvote';
+        
+                 await optioncreated.save();
+            
+            
+                    question.options.push(optioncreated);
+                    const savedquestion = await question.save();
+            
+                if (savedquestion) 
+                {
+                    return res.status(200).json(
+                        {
+                            message: "option created successfully !!",
+                            option: question,
+                        })
+                }
+            }
+             else 
+            {
+                return res.status(500).json(
                     {
-                        message: "option created successfully !!",
-                        option: optioncreated,
+                        message: " error in creating the option !!",
+
                     })
             }
-        } else {
-            return res.status(500).json(
-                {
-                    message: " error in creating the option !!",
 
-                })
         }
-
-    } else {
-        return res.status(500).json(
+       else
+       {
+          return res.status(500).json(
             {
                 message: " question not found !!",
 
             })
-    }
+       }
 }
 
 
@@ -70,12 +70,13 @@ module.exports.deleteOption = async function (req, res) {
             const newOps = allOps.filter((obj) => {
                 return obj._id != optionId;
             })
-            console.log(newOps);
+            // console.log(newOps);
             question.options = newOps;
 
             await question.save();
             return res.status(200).json({
                 message: "option deleted from both collections.",
+                question:question,
             })
         } else {
             console.log("Question update failed.");
@@ -100,6 +101,7 @@ module.exports.deleteOption = async function (req, res) {
 module.exports.addVote = async function (req, res) {
     try {
 
+
         const option = await Option.findById({ _id: req.params.optid });
     
 
@@ -115,11 +117,12 @@ module.exports.addVote = async function (req, res) {
                 {
                     new: true,
                 });
-               const newOps = await Option.find({});
-    
-               console.log(newOps);
+               const newOps = await Option.find({question_ref:option.question_ref});
 
-           
+    
+            //    console.log(newOps);
+                
+               
             question.options = newOps;
 
             
