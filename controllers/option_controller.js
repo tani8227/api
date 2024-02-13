@@ -20,7 +20,7 @@ module.exports.createOption = async function (req, res)
             if (optioncreated) 
             {
                 
-                optioncreated.vote_link = vote_path + '/' + optioncreated.id + '/' + 'addvote';
+                optioncreated.vote_link = vote_path + '/' + optioncreated.id + '/' + 'add_vote';
                   
                  await optioncreated.save();
             
