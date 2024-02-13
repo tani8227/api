@@ -61,17 +61,20 @@ module.exports.createOption = async function (req, res)
 
 module.exports.deleteOption = async function (req, res) {
     try {
-        const optionId = req.params.optid;
-        const questionId = req.params.id;
+
+
+        const optionId = req.params.id;
         const deletedOption = await Option.findByIdAndDelete({ _id: optionId });
-        const question = await Question.findById({ _id: questionId });
-        if (question) {
-            const allOps = question.options;
-            const newOps = allOps.filter((obj) => {
-                return obj._id != optionId;
-            })
+        const questionId=deletedOption.question_ref;
+        const updatedOption = await Option.find({ question_ref : questionId});
+        const question = await Question.findOne({_id:questionId});
+
         
-            question.options = newOps;
+        // console.log(question)
+        console.log(updatedOption)
+        if (deletedOption) {
+           
+            question.options = updatedOption;
 
             await question.save();
             return res.status(200).json({
