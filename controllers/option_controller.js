@@ -70,7 +70,7 @@ module.exports.deleteOption = async function (req, res) {
             const newOps = allOps.filter((obj) => {
                 return obj._id != optionId;
             })
-            // console.log(newOps);
+        
             question.options = newOps;
 
             await question.save();
@@ -120,7 +120,7 @@ module.exports.addVote = async function (req, res) {
                const newOps = await Option.find({question_ref:option.question_ref});
 
     
-            //    console.log(newOps);
+          
                 
                
             question.options = newOps;
@@ -128,9 +128,8 @@ module.exports.addVote = async function (req, res) {
             
            
             await question.save();
-            // console.log(question)
-             
-        //   const allQuestions= await Question.find({});
+           
+        
          
             return res.status(200).json(
                 {
