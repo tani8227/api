@@ -21,7 +21,7 @@ module.exports.createOption = async function (req, res)
             {
                 
                 optioncreated.vote_link = vote_path + '/' + optioncreated.id + '/' + 'addvote';
-        
+                  
                  await optioncreated.save();
             
             
@@ -105,14 +105,14 @@ module.exports.addVote = async function (req, res) {
     try {
 
 
-        const option = await Option.findById({ _id: req.params.optid });
+        const option = await Option.findById({ _id: req.params.id });
     
 
         if (option) {
           
             const question= await Question.findOne({_id : option.question_ref})
            
-            const updatedOption = await Option.findByIdAndUpdate({ _id: req.params.optid },
+            const updatedOption = await Option.findByIdAndUpdate({ _id: req.params.id },
                 {
                     $inc: { votes: 1 }
                 },
