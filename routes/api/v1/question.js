@@ -11,8 +11,8 @@ router.delete('/:id/delete', questionController.deleteQuestion);
 
 
 
-router.post('/:id/option/create',optionController.createOption);
-router.delete('/:id/option/:optid/delete',optionController.deleteOption);
+router.post('/:id/options/create',optionController.createOption);
+// router.delete('/:id/options/:optid/delete',optionController.deleteOption);
 // router.post('/:id/option/:optid/addvote',optionController.addVote);
 
 

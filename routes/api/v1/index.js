@@ -7,7 +7,7 @@ const optionController= require('../../../controllers/option_controller')
 
 
 router.use('/questions', require('./question'))
-router.get('/option/:optid/addvote', optionController.addVote);
-
+router.get('/options/:optid/addvote', optionController.addVote);
+router.delete('/options/:optid/delete',optionController.deleteOption);
 
 module.exports= router;
